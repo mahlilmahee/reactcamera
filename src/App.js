@@ -16,9 +16,11 @@ function App() {
     navigator.mediaDevices.getUserMedia({
       video:{width:1200, height:800}
     })
+
     .then( stream=>{
-      let video=videoRef.current;
+      let video=videoRef?.current;
       video.srcObject=stream;
+      console.log(video,'check out what is a')
       video.play()
       
     })
@@ -37,7 +39,22 @@ const takePhoto =()=>{
   photo.height=height;
   let ctx =photo.getContext('2d');
   ctx.drawImage(video,0,0,width,height)
-  setHasPhoto(true)
+  // console.log(ctx.canvas.parentElement)
+  setHasPhoto(true);
+  // var canvas=ctx.canvas.parentElement;
+  // var data = canvas[0].toDataURL('image/png');
+  // console.log(data,'the canvas data')
+  var can = document.getElementsByTagName("canvas")[0]; 
+
+
+  // the procedure for saving the data here 
+
+  
+  // var data=can.toDataURL('image/png').replace("image/png", "image/octet-stream");
+  // console.log(data,'check the data ')
+  // window.location.href=data;
+
+  savePhoto(can)
 }
 
  const closePhoto =()=>{
@@ -45,22 +62,28 @@ const takePhoto =()=>{
   let ctx =photo.getContext('2d')
   ctx.clearRect(0,0,photo.width,photo.height)
    setHasPhoto(false) 
+   
 }
 
+const savePhoto=(pic)=>{
+  var savingData=pic.toDataURL('image/png').replace('image/png','image/octet-stream')
+  window.location.href=savingData;
+}
   useEffect(()=>{
     getvideo()
   },[videoRef])
 
   return (
     <div className="App">
-     <h1> video will be available very soon </h1>
+     {/* <h1> video will be available very soon </h1> */}
       <div className='camera'>
-        <video ref={videoRef}></video>
+        <video preload="none"  ref={videoRef}></video>
         <button onClick={()=>{takePhoto()}}>snap!</button>
       </div>
       <div className={'result ' +(hasPhoto ?'hasPhoto' :'')}>
         <canvas ref={photoRef}></canvas>
         <button onClick={()=>{closePhoto()}}>Close</button>
+        <button onClick={()=>{savePhoto()}}>Save</button>
       </div>
     </div>
   );

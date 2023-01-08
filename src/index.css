@@ -2,12 +2,13 @@
   margin:0;
   padding:0;
   box-sizing: border-box;
+  color:white;
   font-family: 'Fira Sans', sans-serif;
 }
 .App{
   min-height: 100vh;
   position:relative;
-  background-color:#313131
+  background-color:#d4c8c8
 }
 .camera{
   position:relative;
@@ -20,7 +21,7 @@
  height:100%;
  display:flex;align-items:center;justify-content:center;
  background-color:rgba(0,0,0,0.9);
- transition:0.8s;
+ transition:0.9s;
 
 }
 .result.hasPhoto{
@@ -28,12 +29,12 @@
 }
 vedio{
   width:100%;
-  max-width:100%;
+  max-width:100vh;
   height:auto
 }
 button{
   position:absolute;
-  bottom:20px;
+  bottom:220px;
   left:20px;
   appearance: none;border:none;
   outline:none;padding: 8px 16px;
